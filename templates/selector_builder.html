@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Selector Builder - StrataFetch</title>
+    <link rel="stylesheet" href="/static/css/selector_builder.css">
+</head>
+<body>
+    <div class="selector-container">
+        <header class="toolbar">
+            <h2>Visual Selector Builder</h2>
+            <div class="url-input-group">
+                <input type="url" id="target-url-input" placeholder="https://example.com/products" required>
+                <button id="load-url-btn">Load Page</button>
+            </div>
+        </header>
+
+        <main class="workspace">
+            <section class="preview-panel">
+                <div id="status-bar">Status: Ready. Enter a URL above to load page content.</div>
+                <iframe id="page-frame" sandbox="allow-same-origin allow-scripts"></iframe>
+            </section>
+
+            <aside class="sidebar">
+                <h3>Extracted Field Rules</h3>
+                <form id="field-rule-form">
+                    <label for="field-name">Field Name:</label>
+                    <input type="text" id="field-name" placeholder="e.g. product_price" required>
+
+                    <label for="css-selector">Generated CSS Selector:</label>
+                    <input type="text" id="css-selector" placeholder="Click an element in preview..." required>
+
+                    <label for="data-type">Data Type:</label>
+                    <select id="data-type">
+                        <option value="string">String</option>
+                        <option value="decimal">Decimal</option>
+                        <option value="float">Float</option>
+                        <option value="integer">Integer</option>
+                        <option value="url">URL</option>
+                    </select>
+
+                    <button type="submit" id="add-rule-btn">Add Rule to Profile</button>
+                </form>
+
+                <div class="rules-list-container">
+                    <h4>Active Rules</h4>
+                    <ul id="rules-list"></ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="/static/js/selector_builder.js"></script>
+</body>
+</html>

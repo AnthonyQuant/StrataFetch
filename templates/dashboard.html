@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrataFetch Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <!-- Chart.js CDN for dynamic performance and quality charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-theme">
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">⚡</span>
+                <h2>StrataFetch</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="/" class="nav-item active"><span class="icon">📊</span> Dashboard</a>
+                <a href="/selector-builder" class="nav-item"><span class="icon">🎯</span> Visual Selector</a>
+                <a href="/opportunities" class="nav-item"><span class="icon">🎓</span> Opportunity Hub</a>
+                <a href="/docs" target="_blank" class="nav-item"><span class="icon">⚡</span> API Docs</a>
+                <a href="#audit-logs-section" class="nav-item" id="nav-logs"><span class="icon">📋</span> Audit Logs</a>
+            </nav>
+
+            <div class="sidebar-footers">
+                <div class="stat-card">
+                    <span class="stat-num" id="sidebar-active-scrapers">0</span>
+                    <span class="stat-label">Active Scrapers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num" id="sidebar-records-count">0</span>
+                    <span class="stat-label">Records Collected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="breadcrumbs">
+                    <span>Home</span> &gt; <span>Dashboard</span> &gt; <span class="current">Live Telemetry</span>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search profiles, jobs, logs...">
+                    </div>
+                    <button class="btn btn-primary" id="run-scraper-btn">▶ Run Scraper</button>
+                    <button class="btn btn-secondary disabled">⚙️ Settings</button>
+                </div>
+            </header>
+
+            <!-- KPI Metric Cards Row -->
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-title">Last Run</span>
+                    <div class="kpi-value" id="kpi-last-run">--</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-title">Yield Rate</span>
+                    <div class="kpi-value highlight-green" id="kpi-yield-rate">--%</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-title">Avg Latency</span>
+                    <div class="kpi-value" id="kpi-avg-latency">-- ms</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-title">Total Requests</span>
+                    <div class="kpi-value" id="kpi-total-requests">0</div>
+                </div>
+            </section>
+
+            <!-- Charts Row -->
+            <section class="charts-grid">
+                <div class="chart-card flex-2">
+                    <div class="chart-header">
+                        <h3>Scraper Performance & Request Latency</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="scraperPerformanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card flex-1">
+                    <div class="chart-header">
+                        <h3>Failure & Security Breakdown</h3>
+                    </div>
+                    <div class="chart-body donut-container">
+                        <canvas id="dataQualityChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tables & Telemetry Row -->
+            <section class="details-grid">
+                <!-- Profiles & Audit Logs Tab Card -->
+                <div class="detail-card flex-2" id="audit-logs-section">
+                    <div class="tab-header">
+                        <button class="tab-btn active" id="tab-btn-profiles">Covered Profiles</button>
+                        <button class="tab-btn" id="tab-btn-logs">Live Audit Logs</button>
+                    </div>
+
+                    <!-- Profiles Table View -->
+                    <div class="table-container" id="view-profiles">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Profile Name</th>
+                                    <th>Status</th>
+                                    <th>Records Found</th>
+                                    <th>Last Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody id="profiles-table-body">
+                                <tr><td colspan="4" class="text-center">Loading extraction metrics...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Live Audit Logs View -->
+                    <div class="table-container" id="view-logs" style="display: none;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Target URL</th>
+                                    <th>Status</th>
+                                    <th>Latency</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-table-body">
+                                <tr><td colspan="5" class="text-center">Loading live audit logs...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Failure Breakdown Card -->
+                <div class="detail-card flex-1">
+                    <div class="card-header">
+                        <h3>Request Failure Telemetry</h3>
+                    </div>
+                    <div class="alerts-list" id="failure-breakdown-container">
+                        <div class="alert-item">
+                            <div class="alert-title">SSRF Security Blocks</div>
+                            <div class="alert-desc" id="breakdown-ssrf">0 requests blocked</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-title">Rate Limited (HTTP 429)</div>
+                            <div class="alert-desc" id="breakdown-429">0 requests backed off</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-title">Forbidden / Auth (HTTP 403)</div>
+                            <div class="alert-desc" id="breakdown-403">0 access violations</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-title">Server Errors (5xx)</div>
+                            <div class="alert-desc" id="breakdown-5xx">0 upstream failures</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

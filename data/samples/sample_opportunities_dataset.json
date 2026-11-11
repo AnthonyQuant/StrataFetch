@@ -1,0 +1,35 @@
+[
+  {
+    "id": "opp-f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+    "title": "Quantitative Research & Data Science Intern",
+    "organisation": "Strata Capital Analytics",
+    "location": "London, UK / Remote",
+    "eligibility": "Enrolled in BSc/MSc Computer Science, ICT, Mathematics, or Data Science.",
+    "deadline": "2026-12-15",
+    "application_url": "https://example.com/apply/quant-intern-2026",
+    "category": "internship",
+    "date_discovered": "2026-11-10T10:00:00Z"
+  },
+  {
+    "id": "opp-f81d4fae-7dec-11d0-a765-00a0c91e6bf7",
+    "title": "Global Postgraduate Artificial Intelligence Fellowship",
+    "organisation": "Imperial Tech Foundation",
+    "location": "London, UK",
+    "eligibility": "Final-year STEM undergraduates or recent graduates pursuing research degrees.",
+    "deadline": "2027-01-31",
+    "application_url": "https://example.org/fellowships/ai-2027",
+    "category": "fellowship",
+    "date_discovered": "2026-11-10T10:15:00Z"
+  },
+  {
+    "id": "opp-f81d4fae-7dec-11d0-a765-00a0c91e6bf8",
+    "title": "Undergraduate STEM Excellence Scholarship",
+    "organisation": "African Educational Fund",
+    "location": "Benin City, Nigeria",
+    "eligibility": "Current 200L–400L undergraduates with high academic standing in ICT or Computer Science.",
+    "deadline": "2026-11-30",
+    "application_url": "https://example.org/scholarships/stem-2026",
+    "category": "scholarship",
+    "date_discovered": "2026-11-10T10:30:00Z"
+  }
+]

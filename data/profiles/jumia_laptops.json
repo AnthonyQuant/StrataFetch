@@ -1,0 +1,36 @@
+{
+  "profile_name": "Jumia Laptop Listings Engine",
+  "target_domain": "www.jumia.com.ng",
+  "container_selector": "article.prd",
+  "rules": [
+    {
+      "field_name": "title",
+      "rule_type": "css_selector",
+      "expression": "h3.name",
+      "data_type": "string",
+      "required": true
+    },
+    {
+      "field_name": "price",
+      "rule_type": "css_selector",
+      "expression": "div.prc",
+      "data_type": "decimal",
+      "required": true
+    },
+    {
+      "field_name": "product_url",
+      "rule_type": "link_attribute",
+      "expression": "a.core",
+      "attribute": "href",
+      "data_type": "url",
+      "required": true
+    },
+    {
+      "field_name": "rating",
+      "rule_type": "css_selector",
+      "expression": "div.stars",
+      "data_type": "string",
+      "required": false
+    }
+  ]
+}

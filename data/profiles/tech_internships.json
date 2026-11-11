@@ -1,0 +1,51 @@
+{
+  "profile_name": "Tech & Data Internships Engine",
+  "target_domain": "opportunities.example.com",
+  "container_selector": "div.opportunity-card",
+  "rules": [
+    {
+      "field_name": "title",
+      "rule_type": "css_selector",
+      "expression": "h2.opp-title",
+      "data_type": "string",
+      "required": true
+    },
+    {
+      "field_name": "organisation",
+      "rule_type": "css_selector",
+      "expression": "span.opp-org",
+      "data_type": "string",
+      "required": true
+    },
+    {
+      "field_name": "location",
+      "rule_type": "css_selector",
+      "expression": "span.opp-location",
+      "data_type": "string",
+      "required": false,
+      "default_value": "Remote"
+    },
+    {
+      "field_name": "eligibility",
+      "rule_type": "css_selector",
+      "expression": "div.eligibility-text",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "field_name": "deadline",
+      "rule_type": "css_selector",
+      "expression": "span.deadline-date",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "field_name": "application_url",
+      "rule_type": "css_selector",
+      "expression": "a.apply-link",
+      "attribute": "href",
+      "data_type": "url",
+      "required": true
+    }
+  ]
+}

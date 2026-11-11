@@ -1,0 +1,43 @@
+{
+  "profile_name": "Academic Scholarships & Research Grants",
+  "target_domain": "grants.example.org",
+  "container_selector": "article.grant-item",
+  "rules": [
+    {
+      "field_name": "grant_title",
+      "rule_type": "xpath",
+      "expression": ".//h3[contains(@class, 'grant-title')]",
+      "data_type": "string",
+      "required": true
+    },
+    {
+      "field_name": "institution",
+      "rule_type": "xpath",
+      "expression": ".//span[contains(@class, 'institution-name')]",
+      "data_type": "string",
+      "required": true
+    },
+    {
+      "field_name": "award_amount",
+      "rule_type": "css_selector",
+      "expression": "span.award-val",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "field_name": "deadline",
+      "rule_type": "css_selector",
+      "expression": "time.due-date",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "field_name": "portal_url",
+      "rule_type": "link_attribute",
+      "expression": "a.grant-apply-btn",
+      "attribute": "href",
+      "data_type": "url",
+      "required": true
+    }
+  ]
+}

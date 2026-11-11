@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  stratafetch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stratafetch_app
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=StrataFetch Engine
+      - ENV=production
+      - DEBUG=false
+      - DATABASE_URL=sqlite+aiosqlite:///./stratafetch.db
+    volumes:
+      - stratafetch_data:/app/data
+      - stratafetch_db:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  stratafetch_data:
+  stratafetch_db:
